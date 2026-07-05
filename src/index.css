@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── 色板：宣纸中性底 + 竹绿点缀 ─────────────────────────────
+   颜色以 “R G B” 三元组存储，配合 tailwind 的 rgb(var(--x) / <alpha>) */
+:root {
+  --bg: 247 247 244;          /* 宣纸暖白 */
+  --surface: 255 255 255;     /* 卡片 */
+  --surface-2: 242 243 239;   /* 次级面 / hover */
+  --border: 229 231 224;      /* 发丝线 */
+  --text: 27 31 29;           /* 墨 */
+  --text-muted: 92 100 94;
+  --text-subtle: 140 147 141;
+
+  --brand: 45 169 74;         /* #2da94a 竹绿 */
+  --brand-soft: 224 242 229;  /* 极浅绿底，仅小面积 */
+  --brand-ink: 30 122 53;     /* 浅底上的可读绿字 */
+
+  /* 图表色：与竹绿和谐共处的克制色，避免全绿 */
+  --c-1: 45 169 74;           /* 竹绿（主） */
+  --c-2: 47 143 134;          /* 黛青 */
+  --c-3: 199 148 59;          /* 陈黄 */
+  --c-4: 91 113 134;          /* 石板蓝 */
+  --c-5: 179 106 94;          /* 陶土 */
+  --c-6: 138 112 162;         /* 藤紫 */
+  --c-7: 170 98 126;          /* 绛（紫红） */
+  --c-8: 150 158 82;          /* 苔黄绿 */
+  --grid: 232 234 228;        /* 图表网格线 */
+}
+
+.dark {
+  --bg: 14 18 16;
+  --surface: 22 27 24;
+  --surface-2: 30 36 32;
+  --border: 42 49 44;
+  --text: 232 234 230;
+  --text-muted: 156 164 157;
+  --text-subtle: 111 119 112;
+
+  --brand: 56 195 90;         /* 暗色下略提亮，同色相 */
+  --brand-soft: 26 48 34;
+  --brand-ink: 110 219 138;
+
+  --c-1: 70 200 104;
+  --c-2: 86 184 173;
+  --c-3: 214 174 92;
+  --c-4: 138 162 188;
+  --c-5: 206 142 130;
+  --grid: 38 45 40;
+}
+
+* {
+  border-color: rgb(var(--border));
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: rgb(var(--bg));
+  color: rgb(var(--text));
+  font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 数字一律等宽对齐——数据看板的命根子 */
+.tabular,
+.font-num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+/* 竹节分隔线：细发丝 + 中段一个小刻度 */
+.bamboo-divider {
+  position: relative;
+  height: 1px;
+  background: rgb(var(--border));
+}
+.bamboo-divider::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -1px;
+  width: 3px;
+  height: 3px;
+  border-radius: 9999px;
+  background: rgb(var(--brand));
+  transform: translateX(-50%);
+  opacity: 0.55;
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--border));
+  border-radius: 9999px;
+  border: 2px solid rgb(var(--bg));
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--text-subtle));
+}
+
+/* 焦点可见性（无障碍底线） */
+:focus-visible {
+  outline: 2px solid rgb(var(--brand));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
